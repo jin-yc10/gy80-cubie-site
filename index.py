@@ -9,7 +9,8 @@ urls = (
     '/gyro',    'gyro_handler',
     '/accel',   'accel_handler',
     '/compass', 'compass_handler',
-    '/baro',    'baro_handler'
+    '/baro',    'baro_handler',
+    '/sensors', 'sensor_handler'
 )
 
 gyro_sensor = gyro.L3G4200D()
@@ -28,6 +29,9 @@ class compass_handler:
     def GET(self):
         return str(compass_sensor.axes())
 
+
+
 if __name__ == "__main__":
     app = web.application(urls, globals())
     app.run()
+    
