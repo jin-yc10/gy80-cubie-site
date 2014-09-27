@@ -66,14 +66,14 @@ class BMP085 :
 
   def readS16(self, register):
     "Reads a signed 16-bit value"
-    hi = self.i2c.read_byte(register)
-    lo = self.i2c.read_byte(register+1)
+    hi = self.i2c.read_byte_data(self.address, register)
+    lo = self.i2c.read_byte_data(self.address, register+1)
     return (hi << 8) + lo
 
   def readU16(self, register):
     "Reads an unsigned 16-bit value"
-    hi = self.i2c.read_byte(register)
-    lo = self.i2c.read_byte(register+1)
+    hi = self.i2c.read_byte_data(register)
+    lo = self.i2c.read_byte_data(register+1)
     return (hi << 8) + lo
 
   def readCalibrationData(self):
@@ -126,9 +126,9 @@ class BMP085 :
       time.sleep(0.026)
     else:
       time.sleep(0.008)
-    msb = self.i2c.read_byte(self.__BMP085_PRESSUREDATA)
-    lsb = self.i2c.read_byte(self.__BMP085_PRESSUREDATA+1)
-    xlsb = self.i2c.read_byte(self.__BMP085_PRESSUREDATA+2)
+    msb = self.i2c.read_byte_data(self.__BMP085_PRESSUREDATA)
+    lsb = self.i2c.read_byte_data(self.__BMP085_PRESSUREDATA+1)
+    xlsb = self.i2c.read_byte_data(self.__BMP085_PRESSUREDATA+2)
     raw = ((msb << 16) + (lsb << 8) + xlsb) >> (8 - self.mode)
     if (self.debug):
       print "DBG: Raw Pressure: 0x%04X (%d)" % (raw & 0xFFFF, raw)
