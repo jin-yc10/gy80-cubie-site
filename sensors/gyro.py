@@ -1,6 +1,7 @@
 __author__ = 'jin-yc10'
 
 # L3G4200D Gyro interface in python, using I2C.
+
 from time import sleep
 #import smbus to access i2c port
 import smbus
@@ -22,7 +23,7 @@ class L3G4200D:
         #full 2000dps to control reg4
         self.i2c_bus.write_byte_data(self.i2c_address, 0x23, 0x20)
 
-    def read(self):
+    def getAxes(self):
         self.i2c_bus.write_byte(self.i2c_address, 0x28)
         X_L = self.i2c_bus.read_byte(self.i2c_address)
         self.i2c_bus.write_byte(self.i2c_address, 0x29)
@@ -44,4 +45,6 @@ class L3G4200D:
         X = getSignedNumber(X)
         Y = getSignedNumber(Y)
         Z = getSignedNumber(Z)
-        return (X,Y,Z)
+        return {'x':X,
+                'y':Y,
+                'z':Z}

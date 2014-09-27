@@ -15,6 +15,8 @@ urls = (
 
 gyro_sensor = gyro.L3G4200D()
 compass_sensor = compass.hmc5883l()
+accel_sensor = accel.ADXL345()
+baro_sensor = baro.BMP085()
 
 class index:
     def GET(self):
@@ -29,9 +31,14 @@ class compass_handler:
     def GET(self):
         return str(compass_sensor.axes())
 
+class accel_handler:
+    def GET(self):
+        return str(accel_sensor.getAxes())
 
+class baro_handler:
+    def GET(self):
+        return str(baro_sensor.readAltitude())
 
 if __name__ == "__main__":
     app = web.application(urls, globals())
     app.run()
-    
