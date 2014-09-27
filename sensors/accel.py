@@ -10,6 +10,7 @@ __author__ = 'jin-yc10'
 # http://shop.pimoroni.com/products/adafruit-triple-axis-accelerometer
 
 import smbus
+from basesensor import basesensor
 from time import sleep
 
 # select the correct i2c bus for this revision of Raspberry Pi
@@ -39,7 +40,7 @@ AXES_DATA           = 0x32
 
 bus = smbus.SMBus(1)
 
-class ADXL345:
+class ADXL345(basesensor):
 
     address = None
 
@@ -99,6 +100,10 @@ class ADXL345:
         z = round(z, 4)
 
         return {"x": x, "y": y, "z": z}
+
+    def getdata(self):
+        basesensor.getdata()
+        return self.getAxes()
 
 if __name__ == "__main__":
     # if run directly we'll just create an instance of the class and output
